@@ -14,25 +14,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "exercise")
-@Setter
+@Table(name = "exercise_unit")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Exercise {
+public class ExerciseUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "muscle_worked")
-    private Muscle muscleWorked;
+    @JoinColumn(name = "exercise")
+    private Exercise exercise;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_type")
-    private ExerciseType exerciseType;
+    private String executionType;
+    private Integer reps;
+    private Integer sets;
+    private String status;
 
-    // Getters and setters
 }
+

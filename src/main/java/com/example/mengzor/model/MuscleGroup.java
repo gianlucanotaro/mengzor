@@ -11,22 +11,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
-
 @Entity
-@Table(name = "workout")
+@Table(name = "muscle_group")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Workout {
+@NoArgsConstructor
+public class MuscleGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private ZonedDateTime startDate;
-    private ZonedDateTime endDate;
-    private String exerciseUnitList;
+    private String muscleNames;
 
-    // Getters and setters
 }
