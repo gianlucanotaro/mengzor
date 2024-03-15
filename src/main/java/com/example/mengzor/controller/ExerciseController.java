@@ -1,9 +1,11 @@
 package com.example.mengzor.controller;
 
+import com.example.mengzor.dto.ExerciseDTO;
 import com.example.mengzor.model.Exercise;
 import com.example.mengzor.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +26,10 @@ public class ExerciseController {
         return exerciseService.getAllExercises();
     }
 
-
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Exercise createExercise(@RequestBody Exercise exercise) {
-        return exerciseService.createExercise(exercise);
+    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseDTO exerciseDTO) {
+        Exercise createdExercise = exerciseService.createExercise(exerciseDTO);
+        return ResponseEntity.status(201).body(createdExercise);
     }
+
 }

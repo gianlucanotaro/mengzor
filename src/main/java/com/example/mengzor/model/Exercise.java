@@ -32,6 +32,4 @@ public class Exercise {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_type")
     private ExerciseType exerciseType;
-
-    // Getters and setters
 }
