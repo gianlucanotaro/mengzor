@@ -32,4 +32,13 @@ public class ExerciseController {
         return ResponseEntity.status(201).body(createdExercise);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteExercise(@PathVariable Long id){
+        exerciseService.deleteExercise(id);
+        //TODO: delete exercise from every workout and create confirmation before deleting in frontend
+        return ResponseEntity.ok().build();
+    }
+
+
+
 }

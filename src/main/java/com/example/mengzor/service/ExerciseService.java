@@ -49,4 +49,11 @@ public class ExerciseService {
 
         return exerciseRepository.save(exercise);
     }
+
+    public void deleteExercise(Long id){
+        if(!exerciseRepository.existsById(id)){
+            throw new RuntimeException("Exercise does not exist");
+        }
+        exerciseRepository.deleteById(id);
+    }
 }
