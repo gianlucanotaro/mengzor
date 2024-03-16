@@ -19,17 +19,23 @@ public class ExerciseUnit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_unit")
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    private ExerciseType executionType;
-    private Integer sets;
-    private List<Integer> reps_should;
-    private List<Integer> reps_done;
-    private List<Integer> weight_should;
-    private List<Integer> weight_done;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_unit_set_id")
+    private ExerciseUnitSet exerciseUnitSet;
+
+    @Enumerated(EnumType.STRING)
+    private ExerciseType exerciseType;
+
+    @Enumerated(EnumType.STRING)
     private ExerciseUnitStatus exerciseUnitStatus;
+
+    private Integer reps_should;
+    private Integer reps_done;
+    private Integer weight_should;
+    private Integer weight_done;
 
 }
 

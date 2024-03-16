@@ -43,7 +43,6 @@ public class ExerciseService {
 
         Exercise exercise = Exercise.builder()
                 .name(exerciseDTO.getName())
-                .muscleWorked(muscle)
                 .exerciseType(exerciseType)
                 .build();
 

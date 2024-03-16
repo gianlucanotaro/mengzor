@@ -24,5 +24,5 @@ public class Workout {
     private ZonedDateTime endDate;
 
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ExerciseUnit> exerciseUnitList;
+    private List<ExerciseUnitSet> exerciseUnitSetList;
 }
