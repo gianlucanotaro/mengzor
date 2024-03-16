@@ -1,17 +1,12 @@
 package com.example.mengzor.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "exercise_unit")
@@ -25,13 +20,16 @@ public class ExerciseUnit {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise")
+    @JoinColumn(name = "exercise_unit")
     private Exercise exercise;
 
-    private String executionType;
-    private Integer reps;
+    private ExerciseType executionType;
     private Integer sets;
-    private String status;
+    private List<Integer> reps_should;
+    private List<Integer> reps_done;
+    private List<Integer> weight_should;
+    private List<Integer> weight_done;
+    private ExerciseUnitStatus exerciseUnitStatus;
 
 }
 

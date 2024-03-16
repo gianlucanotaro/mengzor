@@ -1,14 +1,11 @@
 package com.example.mengzor.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "workout")
@@ -25,5 +22,7 @@ public class Workout {
 
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
-    private String exerciseUnitList;
+
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExerciseUnit> exerciseUnitList;
 }
