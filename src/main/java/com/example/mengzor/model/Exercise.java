@@ -3,16 +3,15 @@ package com.example.mengzor.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "exercise")
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +19,23 @@ public class Exercise {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "muscle_worked")
-    private List<Muscle> muscleWorked;
+    @ManyToOne
+    @JoinColumn(name = "execution_type_id")
+    private ExecutionType executionType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_type")
-    private ExerciseType exerciseType;
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_muscle",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "muscle_id")
+    )
+    private Set<Muscle> muscles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_exercise_type",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_type_id")
+    )
+    private Set<ExerciseType> exerciseTypes;
 }

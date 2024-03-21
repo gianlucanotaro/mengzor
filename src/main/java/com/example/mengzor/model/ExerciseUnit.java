@@ -8,34 +8,35 @@ import lombok.Setter;
 
 import java.util.List;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
 @Table(name = "exercise_unit")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ExerciseUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "exercise_unit_set_id")
     private ExerciseUnitSet exerciseUnitSet;
 
-    @Enumerated(EnumType.STRING)
-    private ExerciseType exerciseType;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private ExerciseUnitStatus status;
 
-    @Enumerated(EnumType.STRING)
-    private ExerciseUnitStatus exerciseUnitStatus;
-
-    private Integer reps_should;
-    private Integer reps_done;
-    private Integer weight_should;
-    private Integer weight_done;
-
+    private Integer repsShould;
+    private Integer repsDone;
+    private Integer setsShould;
+    private Integer setsDone;
 }
-

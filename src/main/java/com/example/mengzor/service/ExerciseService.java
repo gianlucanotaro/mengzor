@@ -1,14 +1,11 @@
 package com.example.mengzor.service;
 
-import com.example.mengzor.dto.ExerciseDTO;
 import com.example.mengzor.model.Exercise;
 import com.example.mengzor.repository.ExerciseRepository;
 import com.example.mengzor.repository.ExerciseTypeRepository;
 import com.example.mengzor.repository.MuscleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.mengzor.model.Muscle;
-import com.example.mengzor.model.ExerciseType;
 
 import java.util.List;
 
@@ -30,10 +27,11 @@ public class ExerciseService {
         return exerciseRepository.findAll();
     }
 
-    public Exercise createExercise(Exercise exercise) {
+    public Exercise createExexerciseServiceexerciseServiceexerciseServiceexerciseServiceexerciseServiceexerciseServiceercise(Exercise exercise) {
         return exerciseRepository.save(exercise);
     }
 
+/*
     public Exercise createExercise(ExerciseDTO exerciseDTO) {
         // Check if Muscle and ExerciseType exist
         Muscle muscle = muscleRepository.findById(exerciseDTO.getMuscleWorkedId())
@@ -49,6 +47,7 @@ public class ExerciseService {
         return exerciseRepository.save(exercise);
     }
 
+*/
     public void deleteExercise(Long id){
         if(!exerciseRepository.existsById(id)){
             throw new RuntimeException("Exercise does not exist");

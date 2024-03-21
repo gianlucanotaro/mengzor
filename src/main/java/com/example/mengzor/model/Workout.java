@@ -7,22 +7,35 @@ import lombok.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.Set;
+
 @Entity
 @Table(name = "workout")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
 public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private ZonedDateTime startDate;
-    private ZonedDateTime endDate;
+    @Column(nullable = false)
+    private String name;
 
-    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ExerciseUnitSet> exerciseUnitSetList;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "workout_exercise_unit_set",
+            joinColumns = @JoinColumn(name = "workout_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_unit_set_id")
+    )
+    private Set<ExerciseUnitSet> exerciseUnitSets;
 }

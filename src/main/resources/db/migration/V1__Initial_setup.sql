@@ -1,45 +1,81 @@
--- Enum types for ExerciseType and ExerciseUnitStatus
-CREATE TYPE exercise_type AS ENUM ('CARDIO', 'STRENGTH', 'FLEXIBILITY', 'BALANCE', 'PLYOMETRICS', 'OTHER');
-CREATE TYPE exercise_unit_status AS ENUM ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED', 'FAILED', 'SKIPPED');
-CREATE TYPE execution_type AS ENUM ('FAILURE', 'NORMAL', 'DROPSET', 'REP_MAX', 'ONE_REP_MAX');
-CREATE TYPE muscle AS ENUM ('CALVES', 'HAMSTRINGS', 'QUADRICEPS', 'GLUTES', 'BICEPS', 'TRICEPS', 'FOREARMS', 'TRAPEZIUS', 'LATISSIMUS_DORSI', 'SHOULDERS');
-
--- Muscle Worked is assumed to be a separate table
-CREATE TABLE muscle_worked (
-    id BIGSERIAL PRIMARY KEY,
-    muscle_name muscle
+CREATE TABLE enum_execution_type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
--- Workout table, containing a list of ExerciseUnitSets
-CREATE TABLE workout (
-    id BIGSERIAL PRIMARY KEY,
-    start_date TIMESTAMP WITH TIME ZONE,
-    end_date TIMESTAMP WITH TIME ZONE
+CREATE TABLE enum_exercise_type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
--- Exercise table
+CREATE TABLE enum_exercise_unit_status (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE muscle (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE exercise (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    muscle_worked_id BIGINT REFERENCES muscle_worked(id),
-    exercise_type exercise_type
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    execution_type_id INTEGER,
+    CONSTRAINT fk_execution_type FOREIGN KEY (execution_type_id)
+        REFERENCES enum_execution_type (id)
 );
 
--- ExerciseUnitSet table
+CREATE TABLE exercise_type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE exercise_muscle (
+    exercise_id INTEGER NOT NULL,
+    muscle_id INTEGER NOT NULL,
+    PRIMARY KEY (exercise_id, muscle_id),
+    CONSTRAINT fk_exercise FOREIGN KEY (exercise_id) REFERENCES exercise (id),
+    CONSTRAINT fk_muscle FOREIGN KEY (muscle_id) REFERENCES muscle (id)
+);
+
+CREATE TABLE exercise_exercise_type (
+    exercise_id INTEGER NOT NULL,
+    exercise_type_id INTEGER NOT NULL,
+    PRIMARY KEY (exercise_id, exercise_type_id),
+    CONSTRAINT fk_exercise_to_type FOREIGN KEY (exercise_id) REFERENCES exercise (id),
+    CONSTRAINT fk_exercise_type FOREIGN KEY (exercise_type_id) REFERENCES exercise_type (id)
+);
+
 CREATE TABLE exercise_unit_set (
-    id BIGSERIAL PRIMARY KEY,
-    workout_id BIGINT REFERENCES workout(id)
+    id SERIAL PRIMARY KEY
 );
 
--- ExerciseUnit table
 CREATE TABLE exercise_unit (
-    id BIGSERIAL PRIMARY KEY,
-    exercise_id BIGINT REFERENCES exercise(id),
-    exercise_unit_set_id BIGINT REFERENCES exercise_unit_set(id),
-    exercise_type exercise_type,
-    exercise_unit_status exercise_unit_status,
+    id SERIAL PRIMARY KEY,
+    exercise_id INTEGER,
+    exercise_unit_set_id INTEGER,
+    status_id INTEGER,
     reps_should INTEGER,
     reps_done INTEGER,
-    weight_should INTEGER,
-    weight_done INTEGER
+    sets_should INTEGER,
+    sets_done INTEGER,
+    CONSTRAINT fk_exercise_to_unit FOREIGN KEY (exercise_id) REFERENCES exercise (id),
+    CONSTRAINT fk_exercise_unit_set FOREIGN KEY (exercise_unit_set_id) REFERENCES exercise_unit_set (id),
+    CONSTRAINT fk_exercise_unit_status FOREIGN KEY (status_id) REFERENCES enum_exercise_unit_status (id)
+);
+
+CREATE TABLE workout (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    startdate DATE,
+    enddate DATE
+);
+
+CREATE TABLE workout_exercise_unit_set (
+    workout_id INTEGER NOT NULL,
+    exercise_unit_set_id INTEGER NOT NULL,
+    PRIMARY KEY (workout_id, exercise_unit_set_id),
+    CONSTRAINT fk_workout FOREIGN KEY (workout_id) REFERENCES workout (id),
+    CONSTRAINT fk_exercise_unit_set_to_workout FOREIGN KEY (exercise_unit_set_id) REFERENCES exercise_unit_set (id)
 );

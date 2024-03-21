@@ -26,12 +26,6 @@ public class ExerciseController {
         return exerciseService.getAllExercises();
     }
 
-    @PostMapping
-    public ResponseEntity<Exercise> createExercise(@RequestBody ExerciseDTO exerciseDTO) {
-        Exercise createdExercise = exerciseService.createExercise(exerciseDTO);
-        return ResponseEntity.status(201).body(createdExercise);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteExercise(@PathVariable Long id){
         exerciseService.deleteExercise(id);

@@ -20,13 +20,4 @@ class ExerciseServiceTest {
     @InjectMocks
     private ExerciseService exerciseService;
 
-    @Test
-    void createExerciseTest() {
-        Exercise exercise = new Exercise(); // Setup your exercise
-        when(exerciseRepository.save(any(Exercise.class))).thenReturn(exercise);
-
-        exerciseService.createExercise(exercise);
-
-        verify(exerciseRepository, times(1)).save(any(Exercise.class));
-    }
 }

@@ -1,9 +1,19 @@
 package com.example.mengzor.model;
 
-public enum ExerciseUnitStatus {
-    NOT_STARTED,
-    IN_PROGRESS,
-    COMPLETED,
-    FAILED,
-    SKIPPED
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "enum_exercise_unit_status")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ExerciseUnitStatus {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
 }
