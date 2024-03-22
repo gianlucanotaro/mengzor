@@ -7,30 +7,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @Entity
-@Table(name = "workout")
+@Table(name = "exerciseunitset")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Workout {
+public class Exerciseunitset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
-
-    @NotNull
-    @Column(name = "startdate", nullable = false)
-    private LocalDate startdate;
-
-    @NotNull
-    @Column(name = "enddate", nullable = false)
-    private LocalDate enddate;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "exerciseunit_id", nullable = false)
+    private Exerciseunit exerciseunit;
 
 }

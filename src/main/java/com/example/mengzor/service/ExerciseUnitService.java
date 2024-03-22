@@ -1,6 +1,5 @@
 package com.example.mengzor.service;
 
-import com.example.mengzor.model.ExerciseUnit;
 import com.example.mengzor.repository.ExerciseUnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,4 @@ public class ExerciseUnitService {
         this.exerciseUnitRepository = exerciseUnitRepository;
     }
 
-    public List<ExerciseUnit> getAllExerciseUnits() {
-        return exerciseUnitRepository.findAll();
-    }
 }

@@ -1,13 +1,10 @@
 package com.example.mengzor.ServiceTest;
 
 
-import com.example.mengzor.model.Exercise;
 import com.example.mengzor.repository.ExerciseRepository;
 import com.example.mengzor.service.ExerciseService;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 

@@ -1,41 +1,34 @@
 package com.example.mengzor.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Set;
-
-@Entity
-@Table(name = "exercise")
 @Getter
 @Setter
-@NoArgsConstructor
+@Entity
+@Table(name = "exercise")
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
+    @NotNull
+    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "execution_type_id")
-    private ExecutionType executionType;
+    @NotNull
+    @Column(name = "muscle", nullable = false, length = Integer.MAX_VALUE)
+    private String muscle;
 
-    @ManyToMany
-    @JoinTable(
-            name = "exercise_muscle",
-            joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "muscle_id")
-    )
-    private Set<Muscle> muscles;
+    @NotNull
+    @Column(name = "exercisetype", nullable = false, length = Integer.MAX_VALUE)
+    private String exercisetype;
 
-    @ManyToMany
-    @JoinTable(
-            name = "exercise_exercise_type",
-            joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "exercise_type_id")
-    )
-    private Set<ExerciseType> exerciseTypes;
 }
