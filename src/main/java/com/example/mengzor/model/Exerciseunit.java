@@ -52,4 +52,7 @@ public class Exerciseunit {
     @Column(name = "sets_done", nullable = false)
     private Integer setsDone;
 
+    @NotNull
+    @Column(name = "weight", nullable = false)
+    private Integer weight;
 }

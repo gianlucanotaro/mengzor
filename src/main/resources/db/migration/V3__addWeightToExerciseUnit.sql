@@ -1,0 +1,2 @@
+ALTER TABLE ExerciseUnit
+    ADD COLUMN weight DECIMAL(10, 2) NULL;
