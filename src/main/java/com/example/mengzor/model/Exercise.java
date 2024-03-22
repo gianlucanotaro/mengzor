@@ -29,6 +29,6 @@ public class Exercise {
 
     @NotNull
     @Column(name = "exercisetype", nullable = false, length = Integer.MAX_VALUE)
-    private String exercisetype;
+    private String exerciseType;
 
 }

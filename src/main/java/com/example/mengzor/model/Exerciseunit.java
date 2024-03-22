@@ -26,7 +26,7 @@ public class Exerciseunit {
 
     @NotNull
     @Column(name = "exercisetype", nullable = false, length = Integer.MAX_VALUE)
-    private String exercisetype;
+    private String exerciseType;
 
     @NotNull
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
@@ -34,7 +34,7 @@ public class Exerciseunit {
 
     @NotNull
     @Column(name = "executiontype", nullable = false, length = Integer.MAX_VALUE)
-    private String executiontype;
+    private String executionType;
 
     @NotNull
     @Column(name = "reps_should", nullable = false)

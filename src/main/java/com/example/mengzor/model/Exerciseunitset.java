@@ -22,6 +22,6 @@ public class Exerciseunitset {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "exerciseunit_id", nullable = false)
-    private Exerciseunit exerciseunit;
+    private Exerciseunit exerciseUnit;
 
 }

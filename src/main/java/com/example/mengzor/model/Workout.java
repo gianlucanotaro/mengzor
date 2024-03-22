@@ -27,10 +27,10 @@ public class Workout {
 
     @NotNull
     @Column(name = "startdate", nullable = false)
-    private LocalDate startdate;
+    private LocalDate startDate;
 
     @NotNull
     @Column(name = "enddate", nullable = false)
-    private LocalDate enddate;
+    private LocalDate endDate;
 
 }

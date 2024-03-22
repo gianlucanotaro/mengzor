@@ -24,6 +24,6 @@ public class Workoutexerciseunitset {
     @MapsId("exerciseunitsetId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "exerciseunitset_id", nullable = false)
-    private Exerciseunitset exerciseunitset;
+    private Exerciseunitset exerciseUnitSet;
 
 }

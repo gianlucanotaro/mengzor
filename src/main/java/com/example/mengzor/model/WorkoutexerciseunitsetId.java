@@ -21,20 +21,20 @@ public class WorkoutexerciseunitsetId implements Serializable {
 
     @NotNull
     @Column(name = "exerciseunitset_id", nullable = false)
-    private Integer exerciseunitsetId;
+    private Integer exerciseUnitSetId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         WorkoutexerciseunitsetId entity = (WorkoutexerciseunitsetId) o;
-        return Objects.equals(this.exerciseunitsetId, entity.exerciseunitsetId) &&
+        return Objects.equals(this.exerciseUnitSetId, entity.exerciseUnitSetId) &&
                 Objects.equals(this.workoutId, entity.workoutId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exerciseunitsetId, workoutId);
+        return Objects.hash(exerciseUnitSetId, workoutId);
     }
 
 }
