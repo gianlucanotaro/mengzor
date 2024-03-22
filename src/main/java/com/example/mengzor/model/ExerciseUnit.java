@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "exerciseunit")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exerciseunit {
+public class ExerciseUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

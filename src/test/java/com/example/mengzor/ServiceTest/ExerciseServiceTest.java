@@ -9,10 +9,4 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(MockitoExtension.class)
 class ExerciseServiceTest {
 
-    @Mock
-    private ExerciseRepository exerciseRepository;
-
-    @InjectMocks
-    private ExerciseService exerciseService;
-
 }

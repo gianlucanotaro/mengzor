@@ -13,15 +13,15 @@ import lombok.Setter;
 @Table(name = "exerciseunitset")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exerciseunitset {
+public class ExerciseUnitSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "exerciseunit_id", nullable = false)
-    private Exerciseunit exerciseUnit;
+    private ExerciseUnit exerciseUnit;
 
 }

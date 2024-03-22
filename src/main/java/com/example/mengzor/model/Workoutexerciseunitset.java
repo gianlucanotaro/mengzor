@@ -21,9 +21,9 @@ public class Workoutexerciseunitset {
     @JoinColumn(name = "workout_id", nullable = false)
     private Workout workout;
 
-    @MapsId("exerciseunitsetId")
+    @MapsId("exerciseUnitSetId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "exerciseunitset_id", nullable = false)
-    private Exerciseunitset exerciseUnitSet;
+    private ExerciseUnitSet exerciseUnitSet;
 
 }
