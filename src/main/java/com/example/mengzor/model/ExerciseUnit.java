@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Entity
@@ -15,9 +17,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExerciseUnit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private UUID id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -43,14 +45,6 @@ public class ExerciseUnit {
     @NotNull
     @Column(name = "reps_done", nullable = false)
     private Integer repsDone;
-
-    @NotNull
-    @Column(name = "sets_should", nullable = false)
-    private Integer setsShould;
-
-    @NotNull
-    @Column(name = "sets_done", nullable = false)
-    private Integer setsDone;
 
     @NotNull
     @Column(name = "weight", nullable = false)

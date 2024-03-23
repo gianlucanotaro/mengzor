@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Entity
@@ -15,9 +17,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Exercise {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private UUID id;
 
     @NotNull
     @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)

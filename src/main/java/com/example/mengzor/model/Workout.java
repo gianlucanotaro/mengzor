@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,9 +18,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Workout {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private UUID id;
 
     @NotNull
     @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
