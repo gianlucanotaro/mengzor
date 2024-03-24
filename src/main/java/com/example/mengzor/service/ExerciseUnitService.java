@@ -1,19 +1,31 @@
 package com.example.mengzor.service;
 
+import com.example.mengzor.model.Exercise;
 import com.example.mengzor.model.ExerciseUnit;
+import com.example.mengzor.repository.ExerciseRepository;
 import com.example.mengzor.repository.ExerciseUnitRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ExerciseUnitService {
 
     private final ExerciseUnitRepository exerciseUnitRepository;
+    private final ExerciseRepository exerciseRepository;
 
-    public ExerciseUnitService(ExerciseUnitRepository exerciseUnitRepository) {
+    public ExerciseUnitService(ExerciseUnitRepository exerciseUnitRepository, ExerciseRepository exerciseRepository) {
         this.exerciseUnitRepository = exerciseUnitRepository;
+        this.exerciseRepository = exerciseRepository;
     }
 
+    @Transactional
     public ExerciseUnit save(ExerciseUnit exerciseUnit) {
+        if (exerciseUnit.getExercise() != null && exerciseUnit.getExercise().getId() == null) {
+            // Save the ExerciseUnit first to make it persistent
+            Exercise managedExercise = exerciseRepository.save(exerciseUnit.getExercise());
+            exerciseUnit.setExercise(managedExercise);
+        }
+
         return exerciseUnitRepository.save(exerciseUnit);
     }
 
