@@ -22,9 +22,8 @@ public class ExerciseUnit {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "exercise_id", nullable = false)
     private Exercise exercise;
 
