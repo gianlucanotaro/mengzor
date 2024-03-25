@@ -7,6 +7,8 @@ import com.example.mengzor.repository.ExerciseUnitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class ExerciseUnitService {
 
@@ -21,7 +23,6 @@ public class ExerciseUnitService {
     @Transactional
     public ExerciseUnit save(ExerciseUnit exerciseUnit) {
         if (exerciseUnit.getExercise() != null && exerciseUnit.getExercise().getId() == null) {
-            // Save the ExerciseUnit first to make it persistent
             Exercise managedExercise = exerciseRepository.save(exerciseUnit.getExercise());
             exerciseUnit.setExercise(managedExercise);
         }
@@ -29,7 +30,7 @@ public class ExerciseUnitService {
         return exerciseUnitRepository.save(exerciseUnit);
     }
 
-    public ExerciseUnit findById(Long id) {
+    public ExerciseUnit findById(UUID id) {
         return exerciseUnitRepository.findById(id).orElse(null);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class ExerciseService {
 
@@ -16,7 +18,7 @@ public class ExerciseService {
         this.exerciseRepository = exerciseRepository;
     }
 
-    public Exercise findById(Long id) {
+    public Exercise findById(UUID id) {
         return exerciseRepository.findById(id).orElse(null);
     }
 

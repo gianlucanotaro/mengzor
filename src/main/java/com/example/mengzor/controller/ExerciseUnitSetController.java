@@ -19,48 +19,14 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class ExerciseUnitSetController {
 
     private final ExerciseUnitSetService exerciseUnitSetService;
-    private final ExerciseUnitService exerciseUnitService;
 
     @Autowired
-    public ExerciseUnitSetController(ExerciseUnitSetService exerciseUnitSetService, ExerciseUnitService exerciseUnitService) {
+    public ExerciseUnitSetController(ExerciseUnitSetService exerciseUnitSetService) {
         this.exerciseUnitSetService = exerciseUnitSetService;
-        this.exerciseUnitService = exerciseUnitService;
     }
 
     @PostMapping
     public ExerciseUnitSet addExerciseUnitSet(@RequestBody ExerciseUnitSet exerciseUnitSet) {
         return exerciseUnitSetService.save(exerciseUnitSet);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<ExerciseUnit> updateExerciseUnitSetField(@PathVariable Long id,  @RequestBody @NotNull Map<String, Object> updates) {
-        ExerciseUnit exerciseUnit = exerciseUnitService.findById(id);
-
-        updates.forEach((key, value) -> {
-            switch (key) {
-                case "exercise":
-                    exerciseUnit.setExercise((Exercise) value);
-                    break;
-                case "exerciseType":
-                    exerciseUnit.setExerciseType((String) value);
-                    break;
-                case "status":
-                    exerciseUnit.setStatus((String) value);
-                    break;
-                case "executionType":
-                    exerciseUnit.setExecutionType((String) value);
-                    break;
-                case "repsShould":
-                    exerciseUnit.setRepsShould((Integer) value);
-                    break;
-                case "repsDone":
-                    exerciseUnit.setRepsDone((Integer) value);
-                    break;
-                case "weight":
-                    exerciseUnit.setWeight((Integer) value);
-                    break;
-            }
-        });
-        return ResponseEntity.ok(exerciseUnitService.save(exerciseUnit));
     }
 }
