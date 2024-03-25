@@ -21,9 +21,8 @@ public class ExerciseUnitSet {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "exerciseunit_id", nullable = false)
-    private ExerciseUnit exerciseUnit;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "exerciseunit_id", nullable = true) // Ensure this is nullable
+    private ExerciseUnit exerciseUnit;
 }

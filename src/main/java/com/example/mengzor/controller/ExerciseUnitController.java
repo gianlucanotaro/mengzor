@@ -2,13 +2,17 @@ package com.example.mengzor.controller;
 
 import com.example.mengzor.model.Exercise;
 import com.example.mengzor.model.ExerciseUnit;
+import com.example.mengzor.model.ExerciseUnitSet;
+import com.example.mengzor.repository.ExerciseUnitSetRepository;
 import com.example.mengzor.service.ExerciseUnitService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -52,6 +56,12 @@ public class ExerciseUnitController {
             }
         });
         return ResponseEntity.ok(exerciseUnitService.save(exerciseUnit));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteExerciseUnit(@PathVariable UUID id) {
+        exerciseUnitService.deleteExerciseUnit(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
