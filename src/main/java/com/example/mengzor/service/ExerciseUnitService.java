@@ -1,11 +1,13 @@
 package com.example.mengzor.service;
 
+import com.example.mengzor.dto.ExerciseUnitUpdateDto;
 import com.example.mengzor.model.Exercise;
 import com.example.mengzor.model.ExerciseUnit;
 import com.example.mengzor.model.ExerciseUnitSet;
 import com.example.mengzor.repository.ExerciseRepository;
 import com.example.mengzor.repository.ExerciseUnitRepository;
 import com.example.mengzor.repository.ExerciseUnitSetRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +33,6 @@ public class ExerciseUnitService {
             Exercise managedExercise = exerciseRepository.save(exerciseUnit.getExercise());
             exerciseUnit.setExercise(managedExercise);
         }
-
         return exerciseUnitRepository.save(exerciseUnit);
     }
 
@@ -40,31 +41,49 @@ public class ExerciseUnitService {
     }
 
     @Transactional
-    public void deleteExerciseUnitById(UUID exerciseUnitId) {
-        // Optional: Fetch and disassociate the ExerciseUnit from its ExerciseUnitSet
-        Optional<ExerciseUnitSet> optionalUnitSet = exerciseUnitSetRepository.findByExerciseUnitId(exerciseUnitId);
-        if (optionalUnitSet.isPresent()) {
-            ExerciseUnitSet unitSet = optionalUnitSet.get();
-            unitSet.setExerciseUnit(null); // Disassociate the ExerciseUnit
-            exerciseUnitSetRepository.save(unitSet); // Save the updated ExerciseUnitSet
-        }
-
-        // Delete the ExerciseUnit
-        exerciseUnitRepository.deleteById(exerciseUnitId);
+    public void deleteExerciseUnit(UUID exerciseUnitId) {
+        Optional<ExerciseUnit> exerciseUnitOpt = exerciseUnitRepository.findById(exerciseUnitId);
+        exerciseUnitOpt.ifPresent(exerciseUnit -> {
+            ExerciseUnitSet unitSet = exerciseUnit.getExerciseUnitSet();
+            if (unitSet != null) {
+                unitSet.getExerciseUnits().remove(exerciseUnit);
+                exerciseUnitSetRepository.save(unitSet);
+            }
+            exerciseUnitRepository.delete(exerciseUnit);
+        });
     }
 
     @Transactional
-    public void deleteExerciseUnit(UUID exerciseUnitId) {
-        // First, find the ExerciseUnitSet associated with the ExerciseUnit, if any
-        Optional<ExerciseUnitSet> unitSetOpt = exerciseUnitSetRepository.findByExerciseUnitId(exerciseUnitId);
+    public ExerciseUnit addExerciseUnitToSet(UUID exerciseUnitSetId, ExerciseUnit exerciseUnit) {
+        ExerciseUnitSet exerciseUnitSet = exerciseUnitSetRepository.findById(exerciseUnitSetId)
+                .orElseThrow(() -> new EntityNotFoundException("ExerciseUnitSet not found with ID: " + exerciseUnitSetId));
 
-        // If present, disassociate the ExerciseUnit from the ExerciseUnitSet
-        unitSetOpt.ifPresent(unitSet -> {
-            unitSet.setExerciseUnit(null);
-            exerciseUnitSetRepository.save(unitSet);
-        });
+        exerciseUnit.setExerciseUnitSet(exerciseUnitSet);
 
-        // Now, delete the ExerciseUnit
-        exerciseUnitRepository.deleteById(exerciseUnitId);
+        exerciseUnitSet.getExerciseUnits().add(exerciseUnit);
+
+        return exerciseUnitRepository.save(exerciseUnit);
     }
+
+    @Transactional
+    public ExerciseUnit updateExerciseUnit(UUID id, ExerciseUnitUpdateDto updateDto) {
+        ExerciseUnit exerciseUnit = exerciseUnitRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("ExerciseUnit not found with ID: " + id));
+
+        // Assume you have a method to fetch the Exercise by ID if necessary
+        if (updateDto.getExerciseId() != null) {
+            Exercise exercise = exerciseRepository.findById(updateDto.getExerciseId())
+                    .orElseThrow(() -> new EntityNotFoundException("Exercise not found with ID: " + updateDto.getExerciseId()));
+            exerciseUnit.setExercise(exercise);
+        }
+        exerciseUnit.setExerciseType(updateDto.getExerciseType());
+        exerciseUnit.setStatus(updateDto.getStatus());
+        exerciseUnit.setExecutionType(updateDto.getExecutionType());
+        exerciseUnit.setRepsShould(updateDto.getRepsShould());
+        exerciseUnit.setRepsDone(updateDto.getRepsDone());
+        exerciseUnit.setWeight(updateDto.getWeight());
+
+        return exerciseUnitRepository.save(exerciseUnit);
+    }
+
 }

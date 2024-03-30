@@ -50,4 +50,9 @@ public class ExerciseUnit {
     @NotNull
     @Column(name = "weight", nullable = false)
     private Integer weight;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exerciseunitset_id", nullable = true) // This column should exist in ExerciseUnit table
+    private ExerciseUnitSet exerciseUnitSet;
+
 }

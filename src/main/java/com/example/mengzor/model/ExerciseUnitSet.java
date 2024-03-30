@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -22,7 +24,7 @@ public class ExerciseUnitSet {
     private UUID id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "exerciseunit_id", nullable = true) // Ensure this is nullable
-    private ExerciseUnit exerciseUnit;
+    @OneToMany(mappedBy = "exerciseUnitSet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExerciseUnit> exerciseUnits = new ArrayList<>();
+
 }
