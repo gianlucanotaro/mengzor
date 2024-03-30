@@ -15,11 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ExerciseUnitController.class)
 public class ExerciseUnitControllerTest {
@@ -36,8 +35,8 @@ public class ExerciseUnitControllerTest {
     @Test
     void updateExerciseUnit_Success() throws Exception {
         UUID id = UUID.randomUUID();
-        ExerciseUnitUpdateDto updateDto = new ExerciseUnitUpdateDto(); // Assume this is populated with valid update data
-        ExerciseUnit exerciseUnit = new ExerciseUnit(); // Assume this is populated with the expected updated state
+        ExerciseUnitUpdateDto updateDto = new ExerciseUnitUpdateDto();
+        ExerciseUnit exerciseUnit = new ExerciseUnit();
 
         Mockito.when(exerciseUnitService.updateExerciseUnit(id, updateDto)).thenReturn(exerciseUnit);
 
@@ -50,7 +49,7 @@ public class ExerciseUnitControllerTest {
     @Test
     void updateExerciseUnit_NotFound() throws Exception {
         UUID id = UUID.randomUUID();
-        ExerciseUnitUpdateDto updateDto = new ExerciseUnitUpdateDto(); // Assume this is populated with valid update data
+        ExerciseUnitUpdateDto updateDto = new ExerciseUnitUpdateDto();
 
         Mockito.when(exerciseUnitService.updateExerciseUnit(id, updateDto))
                 .thenThrow(new EntityNotFoundException("ExerciseUnit not found"));
