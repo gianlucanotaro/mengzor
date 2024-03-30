@@ -11,7 +11,6 @@ import java.util.UUID;
 @Repository
 public interface ExerciseUnitSetRepository extends JpaRepository<ExerciseUnitSet, UUID> {
 
-    Optional<ExerciseUnitSet> findByExerciseUnitId(@Param("exerciseunit_id") UUID exerciseUnitId);
 
 
 }

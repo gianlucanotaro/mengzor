@@ -33,7 +33,11 @@ public class ExerciseUnitController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExerciseUnit(@PathVariable UUID id) {
-        exerciseUnitService.deleteExerciseUnit(id);
-        return ResponseEntity.noContent().build();
+        try {
+            exerciseUnitService.deleteExerciseUnit(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

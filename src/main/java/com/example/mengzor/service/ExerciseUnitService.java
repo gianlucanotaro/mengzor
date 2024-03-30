@@ -42,16 +42,17 @@ public class ExerciseUnitService {
 
     @Transactional
     public void deleteExerciseUnit(UUID exerciseUnitId) {
-        Optional<ExerciseUnit> exerciseUnitOpt = exerciseUnitRepository.findById(exerciseUnitId);
-        exerciseUnitOpt.ifPresent(exerciseUnit -> {
-            ExerciseUnitSet unitSet = exerciseUnit.getExerciseUnitSet();
-            if (unitSet != null) {
-                unitSet.getExerciseUnits().remove(exerciseUnit);
-                exerciseUnitSetRepository.save(unitSet);
-            }
-            exerciseUnitRepository.delete(exerciseUnit);
-        });
+        ExerciseUnit exerciseUnit = exerciseUnitRepository.findById(exerciseUnitId)
+                .orElseThrow(() -> new EntityNotFoundException("ExerciseUnit not found with ID: " + exerciseUnitId));
+
+        ExerciseUnitSet unitSet = exerciseUnit.getExerciseUnitSet();
+        if (unitSet != null) {
+            unitSet.getExerciseUnits().remove(exerciseUnit);
+            exerciseUnitSetRepository.save(unitSet);
+        }
+        exerciseUnitRepository.delete(exerciseUnit);
     }
+
 
     @Transactional
     public ExerciseUnit addExerciseUnitToSet(UUID exerciseUnitSetId, ExerciseUnit exerciseUnit) {
@@ -84,6 +85,11 @@ public class ExerciseUnitService {
         exerciseUnit.setWeight(updateDto.getWeight());
 
         return exerciseUnitRepository.save(exerciseUnit);
+    }
+
+    public ExerciseUnitSet getExerciseUnitSetByExerciseUnitId(UUID exerciseUnitId) {
+        return exerciseUnitRepository.findExerciseUnitSetByExerciseUnitId(exerciseUnitId)
+                .orElseThrow(() -> new EntityNotFoundException("No ExerciseUnitSet found for ExerciseUnit ID: " + exerciseUnitId));
     }
 
 }
