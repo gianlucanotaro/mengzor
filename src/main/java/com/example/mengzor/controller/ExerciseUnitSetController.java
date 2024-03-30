@@ -1,21 +1,15 @@
 package com.example.mengzor.controller;
 
-import com.example.mengzor.model.Exercise;
 import com.example.mengzor.model.ExerciseUnit;
 import com.example.mengzor.model.ExerciseUnitSet;
 import com.example.mengzor.service.ExerciseUnitService;
 import com.example.mengzor.service.ExerciseUnitSetService;
 import jakarta.persistence.EntityNotFoundException;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/api/exerciseUnitSet")

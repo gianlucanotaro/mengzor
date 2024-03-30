@@ -2,14 +2,12 @@ package com.example.mengzor.service;
 
 import com.example.mengzor.model.ExerciseUnit;
 import com.example.mengzor.model.ExerciseUnitSet;
+import com.example.mengzor.repository.ExerciseUnitSetRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.mengzor.repository.ExerciseUnitSetRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 @Service
 public class ExerciseUnitSetService {

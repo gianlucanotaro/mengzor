@@ -1,20 +1,13 @@
 package com.example.mengzor.controller;
 
 import com.example.mengzor.dto.ExerciseUnitUpdateDto;
-import com.example.mengzor.model.Exercise;
 import com.example.mengzor.model.ExerciseUnit;
-import com.example.mengzor.model.ExerciseUnitSet;
-import com.example.mengzor.repository.ExerciseUnitSetRepository;
 import com.example.mengzor.service.ExerciseUnitService;
 import jakarta.persistence.EntityNotFoundException;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
